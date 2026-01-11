@@ -1,10 +1,13 @@
 import { useForm } from "react-hook-form";
 import { CircleAlert, CircleAlertIcon } from "lucide-react";
 import { useNavigate } from "react-router";
-import AuthLayout from "../layouts/AuthLayout";
+import {useDispatch, useSelector} from "react-redux"
+import { setUser } from "../features/authSlice";
+import { setToggle } from "../features/toggleSlice";
 
-const Login = ({ setToggle }) => {
-  const navigate = useNavigate()
+const Login = () => {
+  const dispatch = useDispatch()
+  const navigate = useNavigate();
 
   const {
     register,
@@ -14,11 +17,12 @@ const Login = ({ setToggle }) => {
   } = useForm();
 
   const firstSubmit = (data) => {
-    navigate("otp")
+    localStorage.setItem("log user", JSON.stringify(data))
+    dispatch(setUser(data))
+    navigate("otp");
     reset();
-    return <AuthLayout/>
+    return <AuthLayout />;
   };
-
 
   return (
     <div className="min-h-screen bg-[#121212] text-white flex justify-center pt-25">
@@ -70,6 +74,12 @@ const Login = ({ setToggle }) => {
         <div>
           <div className="px-5 ">
             <p className="w-full text-center">or</p>
+            <p
+          onClick={() => navigate("/password")}
+          className="text-center font-bold mt-5 cursor-pointer hover:scale-105 "
+        >
+          Log in with password
+        </p>
             <div className="flex flex-col gap-2 pt-5">
               <a className="flex border border-[#B3B3B3] px-4 py-3 gap-2 rounded-full cursor-pointer hover:scale-103 hover:border-white ">
                 <span
@@ -186,7 +196,7 @@ const Login = ({ setToggle }) => {
           <div className="p-5 mt-15 flex flex-col gap-4 items-center">
             <p className="text-[#B3B3B3]">Don't have an account?</p>
             <button
-              onClick={() => setToggle((prev) => !prev)}
+              onClick={() => dispatch(setToggle(false))}
               className="font-bold hover:scale-105 cursor-pointer "
             >
               Sign up

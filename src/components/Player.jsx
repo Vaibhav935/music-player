@@ -27,7 +27,6 @@ const Player = () => {
 
   const cS = songs.find((n) => n?.id === currentSong?.id);
 
-  console.log(moment)
 
   const handleProgressTime = () => {
     setCurrentTime(audioRef.current.currentTime)

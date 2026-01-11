@@ -1,7 +1,15 @@
-import { House } from "lucide-react";
+import { House, LogOut } from "lucide-react";
 import React from "react";
+import {NavLink, useNavigate} from "react-router"
 
 const Navbar = () => {
+  const navigate = useNavigate()
+  const logOut = () => {
+    localStorage.removeItem("log user")
+    navigate("/")
+    window.location.reload()
+    
+  }
   return (
     <div className="h-[8%] flex items-center pl-8 justify-between pr-5">
       <div className="flex items-center gap-7">
@@ -25,9 +33,9 @@ const Navbar = () => {
           </svg>
         </div>
         <div className="flex gap-5">
-          <div className="p-3 rounded-full bg-[#2A2A2A]">
-            <House size={20} color="#ffffff" />
-          </div>
+          <NavLink to={"/home"} className={`p-3 rounded-full bg-[#2A2A2A] cursor-pointer hover:scale-105`} >
+            <svg fill="white" data-encore-id="icon" role="img" aria-hidden="true" class="h-5 e-91000-icon e-91000-baseline" viewBox="0 0 24 24"><path d="M12.5 3.247a1 1 0 0 0-1 0L4 7.577V20h4.5v-6a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v6H20V7.577zm-2-1.732a3 3 0 0 1 3 0l7.5 4.33a2 2 0 0 1 1 1.732V21a1 1 0 0 1-1 1h-6.5a1 1 0 0 1-1-1v-6h-3v6a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V7.577a2 2 0 0 1 1-1.732z"></path></svg>
+          </NavLink>
           <div className="flex items-center px-5 py-1 bg-[#2A2A2A] rounded-full gap-3">
             <svg
               fill="white"
@@ -62,6 +70,11 @@ const Navbar = () => {
         </div>
       </div>
       <div className="flex gap-5 items-center">
+        <div
+        onClick={logOut}
+         className="rounded-full hover:bg-[#2A2A2A] p-2 cursor-pointer">
+          <LogOut color="#ffffff" strokeWidth={2.25} size={16}  />
+        </div>
         <div className="px-4 text-sm flex hover:scale-105 items-center justify-center py-1 bg-white text-black font-bold cursor-pointer rounded-full">
             Explore Premium
         </div>

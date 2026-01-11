@@ -1,10 +1,21 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addSong, PlayPause } from "../features/songSlice";
+import { Heart } from "lucide-react";
+import { allLiked, addLiked } from "../features/likedSlice";
 
 const SongsCategory = ({ category }) => {
   const dispatch = useDispatch();
   let { currentSong, isPlaying } = useSelector((state) => state.song);
+  let {  isLiked, likedList } = useSelector((state) => state.liked);
+
+
+  // console.log(`liked songs list ${likedList} and ${test}`)
+
+  const handelLike = () => {
+    dispatch(addLiked(true))
+    dispatch(allLiked(category))
+  }
 
   return (
     <div className="pt-3">
@@ -82,20 +93,31 @@ const SongsCategory = ({ category }) => {
                 : null
             } `}
           >
-            <div
-              onClick={() => dispatch(addSong(category))}
-              className="absolute p-3 bg-[#1DD65F] rounded-full right-8 top-30 "
-            >
-              <svg
-                fill="black"
-                data-encore-id="icon"
-                role="img"
-                aria-hidden="true"
-                className="play h-3 e-91000-icon e-91000-baseline"
-                viewBox="0 0 16 16"
+            <div className="absolute right-8 top-30 flex gap-5 ">
+              <div 
+              onClick={handelLike}
+              className="p-2.5 bg-red-100 rounded-full">
+                {
+                  isLiked && likedList.find(e => e.id === category.id)  ? <Heart color="red" size={15} strokeWidth={2.25} fill="red" /> :  <Heart color="black" size={15} strokeWidth={2.25} fill="#ffe2e2" />
+                }
+              </div>
+
+
+              <div
+                onClick={() => dispatch(addSong(category))}
+                className="p-3 bg-[#1DD65F] rounded-full"
               >
-                <path d="M3 1.713a.7.7 0 0 1 1.05-.607l10.89 6.288a.7.7 0 0 1 0 1.212L4.05 14.894A.7.7 0 0 1 3 14.288z"></path>
-              </svg>
+                <svg
+                  fill="black"
+                  data-encore-id="icon"
+                  role="img"
+                  aria-hidden="true"
+                  className="play h-3 e-91000-icon e-91000-baseline"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M3 1.713a.7.7 0 0 1 1.05-.607l10.89 6.288a.7.7 0 0 1 0 1.212L4.05 14.894A.7.7 0 0 1 3 14.288z"></path>
+                </svg>
+              </div>
             </div>
           </div>
         )}

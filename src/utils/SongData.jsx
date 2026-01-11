@@ -18,7 +18,7 @@ export const recentlyPlayed = [
     title: "Jana samjho na",
     artist: "Mitraz",
     src: "/jsn.mp3",
-    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRd9rSrNykWxl5raIfTIGuI2P7xjVIAa25akA&s"
+    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRd9rSrNykWxl5raIfTIGuI2P7xjVIAa25akA&s",
   },
   {
     id: 3,
